@@ -9,6 +9,7 @@ interface TopicRowProps {
   isCompleted: boolean;
   onToggleComplete: () => void;
   showLink?: boolean;
+  questionCount?: number;
   className?: string;
 }
 
@@ -17,12 +18,13 @@ export function TopicRow({
   isCompleted,
   onToggleComplete,
   showLink = true,
+  questionCount,
   className,
 }: TopicRowProps) {
   return (
     <div
       className={cn(
-        "flex items-center gap-6 py-4 px-6 border-b border-border/40 last:border-b-0",
+        "flex items-center gap-4 py-3 px-4 border border-border/40 rounded-lg",
         "hover:bg-primary/5 transition-all duration-200 group",
         isCompleted && "bg-secondary/20",
         className
@@ -37,12 +39,17 @@ export function TopicRow({
         {showLink ? (
           <Link
             to={`/topic/${topic.id}`}
-            className="font-sans text-base font-semibold text-foreground hover:text-primary transition-colors block"
+            className="font-sans text-sm font-semibold text-foreground hover:text-primary transition-colors block truncate"
           >
             {topic.name}
           </Link>
         ) : (
-          <span className="font-sans text-base font-semibold text-foreground">{topic.name}</span>
+          <span className="font-sans text-sm font-semibold text-foreground truncate block">{topic.name}</span>
+        )}
+        {questionCount !== undefined && (
+          <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-tight mt-0.5">
+            {questionCount} Questions
+          </div>
         )}
       </div>
       <PriorityBadge priority={topic.priority} />

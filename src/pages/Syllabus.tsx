@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export default function Syllabus() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { sections, getTopicsBySection } = useStaticData();
+  const { sections, getTopicsBySection, getQuestionsByTopic } = useStaticData();
   const { isTopicCompleted, toggleTopicCompletion, getCompletedCount } =
     useTopicProgress();
 
@@ -25,14 +25,25 @@ export default function Syllabus() {
   const completedCount = getCompletedCount(topics.map((t) => t.id));
   const progress = topics.length > 0 ? (completedCount / topics.length) * 100 : 0;
   
+  // Global stats
+  const { questions } = useStaticData();
+  
   return (
     <div className="h-full flex flex-col gap-6 overflow-hidden">
       {/* Header Area */}
       <div className="flex-none border-b border-border pb-4 min-h-[100px] flex flex-col justify-end">
-        <h1 className="text-4xl font-heading font-bold text-foreground">Academic Syllabus</h1>
-        <p className="text-lg text-muted-foreground mt-1 font-sans">
-          A comprehensive overview of required competencies for the MAH CET.
-        </p>
+        <div className="flex items-end justify-between">
+          <div>
+            <h1 className="text-4xl font-heading font-bold text-foreground">Academic Syllabus</h1>
+            <p className="text-lg text-muted-foreground mt-1 font-sans">
+              A comprehensive overview of required competencies for the MAH CET.
+            </p>
+          </div>
+          <div className="academic-card px-4 py-2 bg-primary/5 border-primary/20 flex flex-col items-center">
+            <span className="text-2xl font-bold text-primary">{questions.length}</span>
+            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">Total Library</span>
+          </div>
+        </div>
       </div>
 
       {/* Main Content Area */}
@@ -73,17 +84,21 @@ export default function Syllabus() {
             </div>
 
             {/* Dense Grid List No Scroll if fits */}
-            <div className="flex-1 overflow-hidden p-6">
-               <div className="grid grid-cols-3 gap-x-8 gap-y-4 h-full content-start">
-                  {topics.map((topic) => (
-                      <TopicRow
-                          key={topic.id}
-                          topic={topic}
-                          isCompleted={isTopicCompleted(topic.id)}
-                          onToggleComplete={() => toggleTopicCompletion(topic.id)}
-                          className="p-3 border rounded-lg hover:border-primary/50 transition-colors bg-card"
-                      />
-                  ))}
+            <div className="flex-1 overflow-auto p-6 scrollbar-thin">
+               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4 h-full content-start">
+                  {topics.map((topic) => {
+                      const count = getQuestionsByTopic(topic.id).length;
+                      return (
+                        <TopicRow
+                            key={topic.id}
+                            topic={topic}
+                            questionCount={count}
+                            isCompleted={isTopicCompleted(topic.id)}
+                            onToggleComplete={() => toggleTopicCompletion(topic.id)}
+                            className="p-3 border rounded-lg hover:border-primary/50 transition-colors bg-card"
+                        />
+                      );
+                  })}
                </div>
             </div>
         </div>
