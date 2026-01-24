@@ -190,7 +190,7 @@ export function generateVocab(count: number, startId: number): Question[] {
 
     const blocks = [genBusiness, genPsych, genPhil, genSoc];
     // 4 Blocks of 25 questions each = 100 questions.
-    const perBlock = 25;
+    const perBlock = Math.ceil(count / 4);
 
     for (let b = 0; b < 4; b++) {
         for (let k = 0; k < perBlock; k++) {
@@ -645,7 +645,7 @@ export function generateParaJumbles(count: number, startId: number): Question[] 
 
         questions.push({
             id: `gen-varc-pj-${startId + i}`,
-            topic_id: "varc-parajumbles",
+            topic_id: "varc-para-jumbles",
             section_id: "VARC",
             question_text: `Arrange the following sentences in a logical sequence:\n\nA. ${sentences[displayIndices[0]]}\nB. ${sentences[displayIndices[1]]}\nC. ${sentences[displayIndices[2]]}\nD. ${sentences[displayIndices[3]]}`,
             option_a: correctSeq,

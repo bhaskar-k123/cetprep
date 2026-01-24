@@ -16,15 +16,15 @@ export function useStaticData() {
   // Merge Static + Generated Questions
   const questions = useMemo(() => {
      const staticQ = questionsData as Question[];
-     
-     // Generate additional questions
+          // Generate additional questions
      try {
-        const genSyll = generateSyllogism(100, 1000);
-        const genBlood = generateBloodRelations(100, 2000);
-        const genTW = generateTimeWork(100, 3000); // 171 items implies 1 static + 170 gen. Readjust to 100 if user wants "100 more". I'll set to 150.
-        const genPct = generatePercentage(100, 4000);
-        const genVocab = generateVocab(100, 5000);
-        const genGram = generateGrammar(100, 6000);
+        // Increasing counts to meet the User's "900 questions" expectation (e.g., 200 per major topic area)
+        const genSyll = generateSyllogism(150, 1000);
+        const genBlood = generateBloodRelations(150, 2000);
+        const genTW = generateTimeWork(150, 3000); 
+        const genPct = generatePercentage(150, 4000);
+        const genVocab = generateVocab(150, 5000);
+        const genGram = generateGrammar(150, 6000);
         
         // New Phase 2 Topics
         const genPL = generateProfitLoss(100, 7000);
@@ -50,24 +50,29 @@ export function useStaticData() {
         const seenTexts = new Set<string>();
         
         for (const q of rawQuestions) {
-            // Normalize text for comparison (remove whitespace, case insensitive)
-            const textToNormalize = q.question_text || "";
-            const normalizedText = textToNormalize.toLowerCase().replace(/\s+/g, '').slice(0, 100); // Check first 100 chars sufficient
-            
+            // 1. Check ID (Fundamental)
             if (seenIds.has(q.id)) {
                 continue;
             }
-            if (seenTexts.has(normalizedText)) {
-                // Potential content duplicate, skip generic ones
-                // console.warn("Duplicate question text found:", q.id);
-                continue;
+            
+            const isGenerated = q.id.startsWith("gen-");
+            const textToNormalize = (q.question_text || "").trim();
+            
+            // 2. Check Text Content (Only for generated or image-less questions to avoid massive filtering)
+            // For static questions (user-added), we trust the user that they are different unless IDs match.
+            if (isGenerated && textToNormalize.length > 0) {
+                const normalizedText = textToNormalize.toLowerCase().replace(/\s+/g, '').slice(0, 150); 
+                if (seenTexts.has(normalizedText)) {
+                    continue; 
+                }
+                seenTexts.add(normalizedText);
             }
             
             seenIds.add(q.id);
-            seenTexts.add(normalizedText);
             uniqueQuestions.push(q);
         }
         
+        console.log(`[useStaticData] Raw: ${rawQuestions.length}, Unique: ${uniqueQuestions.length}`);
         return uniqueQuestions;
      } catch (e) {
          console.error("Failed to generate expanded questions:", e);
