@@ -51,7 +51,8 @@ export function useStaticData() {
         
         for (const q of rawQuestions) {
             // Normalize text for comparison (remove whitespace, case insensitive)
-            const normalizedText = q.question_text.toLowerCase().replace(/\s+/g, '').slice(0, 100); // Check first 100 chars sufficient
+            const textToNormalize = q.question_text || "";
+            const normalizedText = textToNormalize.toLowerCase().replace(/\s+/g, '').slice(0, 100); // Check first 100 chars sufficient
             
             if (seenIds.has(q.id)) {
                 continue;

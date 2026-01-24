@@ -60,10 +60,20 @@ const validate = () => {
              errors++;
         }
 
-        if (!['A', 'B', 'C', 'D'].includes(q.correct_option)) {
+        if (!['A', 'B', 'C', 'D', 'E'].includes(q.correct_option)) {
             console.error(`[Data Error] Question '${q.id}' has invalid correct_option '${q.correct_option}'`);
             errors++;
         }
+    });
+
+    // Print counts regardless of errors
+    const counts: Record<string, number> = {};
+    questions.forEach(q => {
+        counts[q.topic_id] = (counts[q.topic_id] || 0) + 1;
+    });
+    console.log("\n--- Question Counts per Topic ---");
+    Object.entries(counts).sort((a,b) => b[1] - a[1]).forEach(([tid, count]) => {
+        console.log(`${tid}: ${count}`);
     });
 
     if (errors === 0) {
