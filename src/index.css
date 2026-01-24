@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=EB+Garamond:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Serious Academic Palette - Claude Inspired */
+    --background: 30 15% 98%;
+    --foreground: 220 15% 10%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 10%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 10%;
+    
+    --primary: 25 40% 45%; /* Terracotta */
+    --primary-foreground: 30 15% 100%;
+    
+    --secondary: 35 25% 94%; /* Creamy Neutral */
+    --secondary-foreground: 25 40% 20%;
+    
+    --muted: 35 15% 90%;
+    --muted-foreground: 25 10% 40%;
+    
+    --accent: 25 40% 96%;
+    --accent-foreground: 25 40% 25%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 25 15% 88%;
+    --input: 25 15% 88%;
+    --ring: 25 40% 45%;
+
+    --radius: 1rem; /* Pronounced Rounded Edges */
+
+    /* Priority variables for badges - HSL components as values */
+    --priority-high: 25 40% 45%;
+    --priority-high-bg: 25 40% 95%;
+    --priority-medium: 35 30% 50%;
+    --priority-medium-bg: 35 30% 95%;
+    --priority-low: 40 10% 60%;
+    --priority-low-bg: 40 10% 95%;
+
+    /* Section-specific terracotta-adjacent shades */
+    --section-lr: 25 40% 45%;
+    --section-ar: 35 30% 40%;
+    --section-qa: 15 35% 45%;
+    --section-varc: 45 20% 45%;
+
+    --success: 142 76% 36%;
+  }
+
+  .dark {
+    --background: 0 0% 8%;
+    --foreground: 0 0% 90%;
+  }
+
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Crimson Text', serif;
+    font-weight: 600; /* Heavier base weight (approx +20%) */
+    letter-spacing: 0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'EB Garamond', serif;
+    @apply font-bold tracking-tight text-foreground; /* font-bold instead of font-semibold */
+  }
+
+  h1 { @apply text-4xl md:text-5xl mb-6; }
+  h2 { @apply text-2xl md:text-3xl mb-4; }
+  h3 { @apply text-xl md:text-2xl mb-2; }
+}
+
+@layer components {
+  /* Minimal Academic Components with Rounded Edges */
+  .academic-card {
+    @apply bg-white border border-border p-6 transition-all duration-300 rounded-[var(--radius)];
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  }
+  
+  .academic-card:hover {
+    @apply border-primary/20 bg-primary/[0.02];
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+
+  .btn-academic {
+    @apply inline-flex items-center justify-center font-bold px-8 py-3 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-widest text-[10px] border rounded-[var(--radius)];
+  }
+
+  .btn-academic-primary {
+    @apply btn-academic bg-primary text-white border-primary hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20;
+  }
+
+  .btn-academic-secondary {
+    @apply btn-academic bg-white border-border text-muted-foreground hover:border-primary/40 hover:text-primary hover:bg-primary/5;
+  }
+
+  .input-academic {
+    @apply w-full bg-white border border-border py-3 px-4 focus:outline-none focus:border-primary transition-all font-sans rounded-[var(--radius)];
+  }
+
+  /* Priority Badge Variants */
+  .priority-badge-high {
+    @apply bg-[hsl(var(--priority-high-bg))] text-[hsl(var(--priority-high))] border border-[hsl(var(--priority-high)/0.3)] rounded-full px-4;
+  }
+
+  .priority-badge-medium {
+    @apply bg-[hsl(var(--priority-medium-bg))] text-[hsl(var(--priority-medium))] border border-[hsl(var(--priority-medium)/0.3)] rounded-full px-4;
+  }
+
+  .priority-badge-low {
+    @apply bg-[hsl(var(--priority-low-bg))] text-[hsl(var(--priority-low))] border border-[hsl(var(--priority-low)/0.3)] rounded-full px-4;
+  }
+
+  /* Section Color Accents */
+  .section-lr { --section-color: var(--section-lr); }
+  .section-ar { --section-color: var(--section-ar); }
+  .section-qa { --section-color: var(--section-qa); }
+  .section-varc { --section-color: var(--section-varc); }
+
+  /* Feedback States */
+  .answer-correct {
+    @apply border-[hsl(var(--success))] bg-[hsl(var(--success)/0.08)] rounded-[var(--radius)];
+  }
+
+  .answer-incorrect {
+    @apply border-[hsl(var(--destructive))] bg-[hsl(var(--destructive)/0.08)] rounded-[var(--radius)];
+  }
+
+  /* Card Interactive State */
+  .card-interactive {
+    @apply transition-all duration-300 hover:bg-secondary/50 rounded-[var(--radius)];
+  }
+
+  /* Container Utilities */
+  .container-centered {
+    @apply mx-auto px-6 max-w-7xl w-full;
+  }
+}

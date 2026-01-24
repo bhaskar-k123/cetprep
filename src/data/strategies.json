@@ -1,0 +1,37 @@
+[
+  {
+    "id": "strategy-general",
+    "section_id": null,
+    "topic_id": null,
+    "title": "General CET Strategy",
+    "content": "## MAH CET Exam Strategy\n\n### Time Management\n- Total time: 150 minutes for 200 questions\n- Average time per question: 45 seconds\n- Don't spend more than 90 seconds on any question\n\n### Attempt Strategy\n- No negative marking - attempt all questions\n- Start with your strongest section\n- Mark difficult questions and return later\n\n### Exam Day Tips\n- Reach the center 30 minutes early\n- Carry valid ID proof and admit card\n- Stay calm and focused\n- Read each question carefully"
+  },
+  {
+    "id": "strategy-lr",
+    "section_id": "LR",
+    "topic_id": null,
+    "title": "Logical Reasoning Strategy",
+    "content": "## Logical Reasoning (75 Questions)\n\n### Key Topics\n- Syllogisms (High Priority)\n- Blood Relations (High Priority)\n- Seating Arrangement (High Priority)\n- Coding-Decoding (High Priority)\n\n### Approach\n1. Start with simpler topics like Blood Relations\n2. Leave complex arrangements for later\n3. Use diagrams for seating arrangements\n4. Practice Venn diagrams for syllogisms\n\n### Common Mistakes\n- Not reading all statements carefully\n- Missing negative conditions\n- Rushing through complex arrangements"
+  },
+  {
+    "id": "strategy-ar",
+    "section_id": "AR",
+    "topic_id": null,
+    "title": "Abstract Reasoning Strategy",
+    "content": "## Abstract Reasoning (25 Questions)\n\n### Key Topics\n- Figure Series (High Priority)\n- Figure Analogy (High Priority)\n- Pattern Completion (Medium Priority)\n\n### Approach\n1. Look for rotation patterns first\n2. Check for addition/removal of elements\n3. Observe shading patterns\n4. Note size changes\n\n### Tips\n- Practice visual pattern recognition\n- Time yourself during practice\n- Don't overthink - trust your intuition"
+  },
+  {
+    "id": "strategy-qa",
+    "section_id": "QA",
+    "topic_id": null,
+    "title": "Quantitative Aptitude Strategy",
+    "content": "## Quantitative Aptitude (50 Questions)\n\n### Key Topics\n- Number System (High Priority)\n- Percentage (High Priority)\n- Profit & Loss (High Priority)\n- Time & Work (High Priority)\n- Data Interpretation (High Priority)\n\n### Approach\n1. Memorize formulas and shortcuts\n2. Start with easier arithmetic questions\n3. Leave complex DI for later\n4. Use approximation for calculations\n\n### Common Mistakes\n- Calculation errors\n- Not reading the question fully\n- Missing units in answers"
+  },
+  {
+    "id": "strategy-varc",
+    "section_id": "VARC",
+    "topic_id": null,
+    "title": "Verbal Ability & RC Strategy",
+    "content": "## VARC (50 Questions)\n\n### Key Topics\n- Reading Comprehension (High Priority)\n- Para Jumbles (High Priority)\n- Grammar (High Priority)\n- Critical Reasoning (High Priority)\n\n### Approach\n1. Skim RC passages first, then read questions\n2. Look for keywords in para jumbles\n3. Eliminate obviously wrong options\n4. Focus on author's tone and main idea\n\n### Tips\n- Build vocabulary through daily reading\n- Practice identifying transition words\n- Improve reading speed"
+  }
+]

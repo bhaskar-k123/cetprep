@@ -1,0 +1,362 @@
+[
+  {
+    "id": "mock-2025-1",
+    "section_id": "MOCKS",
+    "name": "CET 2025 Slot 1",
+    "priority": "High",
+    "weightage": 10,
+    "is_active": true,
+    "order": 1
+  },
+  {
+    "id": "mock-2025-2",
+    "section_id": "MOCKS",
+    "name": "CET 2025 Slot 2",
+    "priority": "High",
+    "weightage": 10,
+    "is_active": true,
+    "order": 2
+  },
+  {
+    "id": "mock-2025-3",
+    "section_id": "MOCKS",
+    "name": "CET 2025 Slot 3",
+    "priority": "High",
+    "weightage": 10,
+    "is_active": true,
+    "order": 3
+  },
+  {
+    "id": "lr-pyq",
+    "section_id": "LR",
+    "name": "Previous Year Questions (Mixed)",
+    "priority": "High",
+    "weightage": 10,
+    "is_active": true,
+    "order": 0
+  },
+  {
+    "id": "ar-pyq",
+    "section_id": "AR",
+    "name": "Previous Year Questions (Mixed)",
+    "priority": "High",
+    "weightage": 10,
+    "is_active": true,
+    "order": 0
+  },
+  {
+    "id": "qa-pyq",
+    "section_id": "QA",
+    "name": "Previous Year Questions (Mixed)",
+    "priority": "High",
+    "weightage": 10,
+    "is_active": true,
+    "order": 0
+  },
+  {
+    "id": "varc-pyq",
+    "section_id": "VARC",
+    "name": "Previous Year Questions (Mixed)",
+    "priority": "High",
+    "weightage": 10,
+    "is_active": true,
+    "order": 0
+  },
+  {
+    "id": "lr-syllogism",
+    "section_id": "LR",
+    "name": "Syllogism",
+    "priority": "High",
+    "weightage": 8,
+    "is_active": true,
+    "order": 1
+  },
+  {
+    "id": "lr-blood-relations",
+    "section_id": "LR",
+    "name": "Blood Relations",
+    "priority": "High",
+    "weightage": 7,
+    "is_active": true,
+    "order": 2
+  },
+  {
+    "id": "lr-coding-decoding",
+    "section_id": "LR",
+    "name": "Coding-Decoding",
+    "priority": "High",
+    "weightage": 6,
+    "is_active": true,
+    "order": 3
+  },
+  {
+    "id": "lr-direction-sense",
+    "section_id": "LR",
+    "name": "Direction Sense",
+    "priority": "Medium",
+    "weightage": 5,
+    "is_active": true,
+    "order": 4
+  },
+  {
+    "id": "lr-seating-arrangement",
+    "section_id": "LR",
+    "name": "Seating Arrangement",
+    "priority": "High",
+    "weightage": 8,
+    "is_active": true,
+    "order": 5
+  },
+  {
+    "id": "lr-puzzles",
+    "section_id": "LR",
+    "name": "Puzzles",
+    "priority": "High",
+    "weightage": 9,
+    "is_active": true,
+    "order": 6
+  },
+  {
+    "id": "lr-data-sufficiency",
+    "section_id": "LR",
+    "name": "Data Sufficiency",
+    "priority": "Medium",
+    "weightage": 5,
+    "is_active": true,
+    "order": 7
+  },
+  {
+    "id": "lr-logical-sequence",
+    "section_id": "LR",
+    "name": "Logical Sequence of Words",
+    "priority": "Low",
+    "weightage": 3,
+    "is_active": true,
+    "order": 8
+  },
+  {
+    "id": "lr-statement-conclusion",
+    "section_id": "LR",
+    "name": "Statement & Conclusion",
+    "priority": "Medium",
+    "weightage": 5,
+    "is_active": true,
+    "order": 9
+  },
+  {
+    "id": "lr-input-output",
+    "section_id": "LR",
+    "name": "Input-Output",
+    "priority": "Medium",
+    "weightage": 4,
+    "is_active": true,
+    "order": 10
+  },
+  {
+    "id": "ar-series",
+    "section_id": "AR",
+    "name": "Figure Series",
+    "priority": "High",
+    "weightage": 8,
+    "is_active": true,
+    "order": 1
+  },
+  {
+    "id": "ar-analogy",
+    "section_id": "AR",
+    "name": "Figure Analogy",
+    "priority": "High",
+    "weightage": 7,
+    "is_active": true,
+    "order": 2
+  },
+  {
+    "id": "ar-classification",
+    "section_id": "AR",
+    "name": "Figure Classification",
+    "priority": "Medium",
+    "weightage": 5,
+    "is_active": true,
+    "order": 3
+  },
+  {
+    "id": "ar-pattern-completion",
+    "section_id": "AR",
+    "name": "Pattern Completion",
+    "priority": "Medium",
+    "weightage": 5,
+    "is_active": true,
+    "order": 4
+  },
+  {
+    "id": "ar-mirror-water-image",
+    "section_id": "AR",
+    "name": "Mirror & Water Image",
+    "priority": "Low",
+    "weightage": 3,
+    "is_active": true,
+    "order": 5
+  },
+  {
+    "id": "qa-number-system",
+    "section_id": "QA",
+    "name": "Number System",
+    "priority": "High",
+    "weightage": 8,
+    "is_active": true,
+    "order": 1
+  },
+  {
+    "id": "qa-percentage",
+    "section_id": "QA",
+    "name": "Percentage",
+    "priority": "High",
+    "weightage": 7,
+    "is_active": true,
+    "order": 2
+  },
+  {
+    "id": "qa-profit-loss",
+    "section_id": "QA",
+    "name": "Profit & Loss",
+    "priority": "High",
+    "weightage": 7,
+    "is_active": true,
+    "order": 3
+  },
+  {
+    "id": "qa-ratio-proportion",
+    "section_id": "QA",
+    "name": "Ratio & Proportion",
+    "priority": "High",
+    "weightage": 6,
+    "is_active": true,
+    "order": 4
+  },
+  {
+    "id": "qa-time-work",
+    "section_id": "QA",
+    "name": "Time & Work",
+    "priority": "High",
+    "weightage": 7,
+    "is_active": true,
+    "order": 5
+  },
+  {
+    "id": "qa-time-speed-distance",
+    "section_id": "QA",
+    "name": "Time, Speed & Distance",
+    "priority": "High",
+    "weightage": 6,
+    "is_active": true,
+    "order": 6
+  },
+  {
+    "id": "qa-simple-compound-interest",
+    "section_id": "QA",
+    "name": "Simple & Compound Interest",
+    "priority": "Medium",
+    "weightage": 5,
+    "is_active": true,
+    "order": 7
+  },
+  {
+    "id": "qa-averages",
+    "section_id": "QA",
+    "name": "Averages",
+    "priority": "Medium",
+    "weightage": 4,
+    "is_active": true,
+    "order": 8
+  },
+  {
+    "id": "qa-algebra",
+    "section_id": "QA",
+    "name": "Algebra",
+    "priority": "Medium",
+    "weightage": 5,
+    "is_active": true,
+    "order": 9
+  },
+  {
+    "id": "qa-geometry",
+    "section_id": "QA",
+    "name": "Geometry & Mensuration",
+    "priority": "Medium",
+    "weightage": 5,
+    "is_active": true,
+    "order": 10
+  },
+  {
+    "id": "qa-data-interpretation",
+    "section_id": "QA",
+    "name": "Data Interpretation",
+    "priority": "High",
+    "weightage": 8,
+    "is_active": true,
+    "order": 11
+  },
+  {
+    "id": "varc-reading-comprehension",
+    "section_id": "VARC",
+    "name": "Reading Comprehension",
+    "priority": "High",
+    "weightage": 10,
+    "is_active": true,
+    "order": 1
+  },
+  {
+    "id": "varc-para-jumbles",
+    "section_id": "VARC",
+    "name": "Para Jumbles",
+    "priority": "High",
+    "weightage": 7,
+    "is_active": true,
+    "order": 2
+  },
+  {
+    "id": "varc-sentence-completion",
+    "section_id": "VARC",
+    "name": "Sentence Completion",
+    "priority": "Medium",
+    "weightage": 5,
+    "is_active": true,
+    "order": 3
+  },
+  {
+    "id": "varc-grammar",
+    "section_id": "VARC",
+    "name": "Grammar & Error Correction",
+    "priority": "High",
+    "weightage": 6,
+    "is_active": true,
+    "order": 4
+  },
+  {
+    "id": "varc-vocabulary",
+    "section_id": "VARC",
+    "name": "Vocabulary & Synonyms/Antonyms",
+    "priority": "Medium",
+    "weightage": 5,
+    "is_active": true,
+    "order": 5
+  },
+  {
+    "id": "varc-verbal-reasoning",
+    "section_id": "VARC",
+    "name": "Verbal Reasoning",
+    "priority": "Medium",
+    "weightage": 4,
+    "is_active": true,
+    "order": 6
+  },
+  {
+    "id": "varc-critical-reasoning",
+    "section_id": "VARC",
+    "name": "Critical Reasoning",
+    "priority": "High",
+    "weightage": 6,
+    "is_active": true,
+    "order": 7
+  }
+]

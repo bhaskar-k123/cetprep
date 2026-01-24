@@ -1,0 +1,32 @@
+[
+  {
+    "id": "LR",
+    "name": "Logical Reasoning",
+    "total_questions": 75,
+    "order": 1
+  },
+  {
+    "id": "AR",
+    "name": "Abstract Reasoning",
+    "total_questions": 25,
+    "order": 2
+  },
+  {
+    "id": "QA",
+    "name": "Quantitative Aptitude",
+    "total_questions": 50,
+    "order": 3
+  },
+  {
+    "id": "VARC",
+    "name": "Verbal Ability & Reading Comprehension",
+    "total_questions": 50,
+    "order": 4
+  },
+  {
+    "id": "MOCKS",
+    "name": "Full Length Mock Tests",
+    "total_questions": 200,
+    "order": 5
+  }
+]
