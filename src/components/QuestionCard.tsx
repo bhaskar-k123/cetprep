@@ -60,35 +60,40 @@ export function QuestionCard({
         )}
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4" role="radiogroup" aria-label="Answer options">
         {options.map((option) => {
           const isSelected = selectedOption === option.key;
           const isCorrectOption = option.key === question.correct_option;
 
           let optionClasses =
-            "flex items-start gap-6 p-6 border transition-all duration-300 group relative overflow-hidden cursor-pointer";
+            "w-full text-left flex items-start gap-6 p-6 border transition-all duration-300 group relative overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg";
 
           if (isSubmitted) {
             if (isCorrectOption) {
-              optionClasses += " border-primary/50 bg-primary/5 text-foreground";
+              optionClasses += " border-primary/50 bg-primary/10 text-foreground";
             } else if (isSelected && !isCorrectOption) {
-              optionClasses += " border-destructive/40 bg-destructive/5 text-muted-foreground";
+              optionClasses += " border-destructive/40 bg-destructive/10 text-foreground/80";
             } else {
-              optionClasses += " border-border/40 bg-secondary/20 opacity-40";
+              optionClasses += " border-border/40 bg-secondary/20 opacity-60";
             }
           } else {
             if (isSelected) {
-              optionClasses += " border-primary bg-primary/5 ring-1 ring-primary/20 shadow-lg shadow-primary/5";
+              optionClasses += " border-primary bg-primary/10 ring-1 ring-primary/20 shadow-lg shadow-primary/5";
             } else {
               optionClasses += " border-border bg-card hover:bg-secondary/50 hover:border-primary/30";
             }
           }
 
           return (
-            <div
+            <button
+              type="button"
               key={option.key}
               className={optionClasses}
               onClick={() => onSelectOption(option.key)}
+              aria-checked={isSelected}
+              role="radio"
+              aria-label={`Option ${option.key}: ${option.text || "Image option"}`}
+              disabled={isSubmitted}
             >
               {/* Selection Hex/Square */}
               <div className={cn(
@@ -120,7 +125,7 @@ export function QuestionCard({
                   <Check className="h-5 w-5 text-primary" />
                 </div>
               )}
-            </div>
+            </button>
           );
         })}
       </div>
