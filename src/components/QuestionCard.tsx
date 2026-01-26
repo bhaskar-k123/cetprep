@@ -88,7 +88,7 @@ export function QuestionCard({
             <div
               key={option.key}
               className={optionClasses}
-              onClick={() => !isSubmitted && onSelectOption(option.key)}
+              onClick={() => onSelectOption(option.key)}
             >
               {/* Selection Hex/Square */}
               <div className={cn(

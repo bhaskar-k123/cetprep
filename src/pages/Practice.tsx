@@ -18,6 +18,8 @@ import {
   RotateCcw
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 type PracticePhase = "practice" | "review" | "summary";
 
@@ -55,6 +57,7 @@ export default function Practice() {
   const [showExplanation, setShowExplanation] = useState<Set<string>>(new Set());
   const [phase, setPhase] = useState<PracticePhase>("practice");
   const [isFocusMode, setIsFocusMode] = useState(false);
+  const [isInstantFeedback, setIsInstantFeedback] = useState(false);
 
   // Timer State
   const [timeRemaining, setTimeRemaining] = useState<number>(isMockTest ? MOCK_DURATION : 0);
@@ -154,10 +157,46 @@ export default function Practice() {
 
   const handleSelectOption = useCallback(
     (option: "A" | "B" | "C" | "D" | "E") => {
-      if (!currentQuestion || submitted.has(currentQuestion.id)) return;
+      // Allow interaction even if submitted (for re-attempts)
+      if (!currentQuestion) return;
+
+      const currentAnswer = answers[currentQuestion.id];
+
+      // Toggle Logic: If clicking the same option, Deselect/Clear
+      if (currentAnswer === option) {
+        setAnswers((prev) => {
+          const next = { ...prev };
+          delete next[currentQuestion.id]; // Remove answer
+          return next;
+        });
+        // Also clear submission status to reset UI colors
+        setSubmitted((prev) => {
+          const next = new Set(prev);
+          next.delete(currentQuestion.id);
+          return next;
+        });
+        return;
+      }
+
+      // New Selection Logic
       setAnswers((prev) => ({ ...prev, [currentQuestion.id]: option }));
+
+      if (isInstantFeedback) {
+        const isCorrect = option === currentQuestion.correct_option;
+        recordAttempt(currentQuestion.id, option, isCorrect);
+        setSubmitted((prev) => new Set(prev).add(currentQuestion.id));
+      } else {
+        // If switching answer in manual mode, ensure we reset "submitted" if it was previously submitted
+        // actually, if we want to allow re-attempt in manual mode too, we should clear submitted until they click validate again?
+        // User asked for "remove validation". So yes, if they switch, it should probably reset to "Unvalidated" state until they click Validate.
+        setSubmitted((prev) => {
+          const next = new Set(prev);
+          next.delete(currentQuestion.id);
+          return next;
+        });
+      }
     },
-    [currentQuestion, submitted]
+    [currentQuestion, answers, isInstantFeedback, recordAttempt]
   );
 
   const handleSubmitAnswer = useCallback(() => {
@@ -423,6 +462,19 @@ export default function Practice() {
           </div>
 
           <div className="flex items-center gap-4">
+            {!isReviewPhase && !isMockTest && (
+              <div className="flex items-center gap-2 px-3 py-2 bg-secondary/50 rounded-[var(--radius)] border border-border/50">
+                <Switch
+                  id="instant-feedback"
+                  checked={isInstantFeedback}
+                  onCheckedChange={setIsInstantFeedback}
+                />
+                <Label htmlFor="instant-feedback" className="text-xs font-bold uppercase tracking-widest text-muted-foreground cursor-pointer">
+                  Instant Feedback
+                </Label>
+              </div>
+            )}
+
             {!isReviewPhase && (
               <>
                 <Button
@@ -546,7 +598,7 @@ export default function Practice() {
                   Let's modify: If Mock Test, "Validate Answer" button should probably be "Save & Next"?
                */}
 
-              {(!isReviewPhase && !isCurrentSubmitted && !isMockTest) && (
+              {(!isReviewPhase && !isCurrentSubmitted && !isMockTest && !isInstantFeedback) && (
                 <Button
                   onClick={handleSubmitAnswer}
                   disabled={!answers[currentQuestion.id]}
