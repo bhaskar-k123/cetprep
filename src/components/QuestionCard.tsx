@@ -50,11 +50,17 @@ export function QuestionCard({
 
         {/* Question Image */}
         {question.question_image && (
-          <div className="rounded-lg overflow-hidden border border-border shadow-sm max-h-[200px] flex justify-center bg-secondary/10">
+          <div className="rounded-lg overflow-hidden border border-border shadow-sm max-h-[600px] flex justify-center bg-secondary/5 hover:bg-secondary/10 transition-colors cursor-zoom-in group">
             <img
               src={`/${question.question_image}`}
               alt="Question"
-              className="max-h-full w-auto object-contain"
+              className="max-h-full w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+              onClick={(e) => {
+                const img = e.currentTarget;
+                if (img.requestFullscreen) {
+                  img.requestFullscreen();
+                }
+              }}
             />
           </div>
         )}
@@ -110,11 +116,18 @@ export function QuestionCard({
                   <span className="text-base font-sans font-medium leading-tight block">{option.text}</span>
                 )}
                 {option.image && (
-                  <div className="mt-1 rounded border border-border/50 bg-card p-1 inline-block">
+                  <div className="mt-2 rounded border border-border/50 bg-white/50 dark:bg-black/20 p-2 inline-block hover:border-primary/30 transition-colors cursor-zoom-in group/opt">
                     <img
                       src={`/${option.image}`}
                       alt={`Option ${option.key}`}
-                      className="max-h-[100px] w-auto"
+                      className="max-h-[150px] w-auto object-contain transition-transform group-hover/opt:scale-[1.05]"
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent selecting the option when clicking the image
+                        const img = e.currentTarget;
+                        if (img.requestFullscreen) {
+                          img.requestFullscreen();
+                        }
+                      }}
                     />
                   </div>
                 )}
