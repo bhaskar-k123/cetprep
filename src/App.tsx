@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { AppLayout } from "@/components/AppLayout";
+import { Analytics } from "@vercel/analytics/react";
 const Dashboard = React.lazy(() => import("./pages/Dashboard"));
 const Syllabus = React.lazy(() => import("./pages/Syllabus"));
 const TopicDetail = React.lazy(() => import("./pages/TopicDetail"));
@@ -44,6 +45,7 @@ const App = () => (
             </React.Suspense>
           </AppLayout>
         </BrowserRouter>
+        <Analytics />
       </TooltipProvider>
     </ThemeProvider>
   </QueryClientProvider>
