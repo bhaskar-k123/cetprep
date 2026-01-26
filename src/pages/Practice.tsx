@@ -328,9 +328,17 @@ export default function Practice() {
   const handleReset = useCallback(() => {
     if (confirm("Are you sure you want to reset this session? All progress will be lost.")) {
       clearSession();
-      window.location.reload();
+      // Manually reset state instead of reloading to prevent 404s
+      setCurrentIndex(0);
+      setAnswers({});
+      setMarkedForReview(new Set());
+      setSubmitted(new Set());
+      setShowExplanation(new Set());
+      setPhase("practice");
+      setTimeRemaining(isMockTest ? MOCK_DURATION : 0);
+      setIsInstantFeedback(false);
     }
-  }, [clearSession]);
+  }, [clearSession, isMockTest, MOCK_DURATION]);
 
   // Format Time
   const formatTime = (seconds: number) => {
@@ -339,6 +347,19 @@ export default function Practice() {
     const s = seconds % 60;
     return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   }
+
+  // Calculate Status for Navigator
+  const answerStatus: Record<string, "correct" | "incorrect" | "answered"> = {};
+  questions.forEach(q => {
+    const ans = answers[q.id];
+    if (ans) {
+      if (submitted.has(q.id)) {
+        answerStatus[q.id] = ans === q.correct_option ? "correct" : "incorrect";
+      } else {
+        answerStatus[q.id] = "answered";
+      }
+    }
+  });
 
   if (isSessionLoading) {
     return <div className="flex h-screen items-center justify-center">Loading Session...</div>;
@@ -649,13 +670,7 @@ export default function Practice() {
           <QuestionNavigator
             totalQuestions={questions.length}
             currentIndex={currentIndex}
-            answeredQuestions={
-              new Set(
-                Object.entries(answers)
-                  .filter(([, v]) => v !== null)
-                  .map(([k]) => k)
-              )
-            }
+            answerStatus={answerStatus}
             markedQuestions={markedForReview}
             questionIds={questionIds}
             onNavigate={handleNavigate}
