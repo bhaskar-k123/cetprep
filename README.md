@@ -1,36 +1,46 @@
 # MBA CET Prep Companion
 
-A comprehensive preparation tool for the MBA CET exam, built with React, TypeScript, and Vite.
+A professional preparation platform for the Maharashtra MBA Common Entrance Test (CET). Built for speed, efficiency, and structured learning.
 
-## Features
+## Key Features
 
-- Topic-wise practice questions
-- Mock tests and timers
-- Progress tracking and analytics
-- Minimalist design system
+- **Dashboard**: Track preparation progress and exam countdowns.
+- **Practice Engine**: Interactive testing environment with time tracking and navigation.
+- **Syllabus Explorer**: Complete breakdown of Logical Reasoning, Abstract Reasoning, Quant, and Verbal sections.
+- **Strategy Guides**: Curated tips for optimizing exam performance.
+- **Performance Optimized**: Uses batched data loading for a smooth experience.
+
+## Tech Stack
+
+- **Frontend**: React, TypeScript, Vite
+- **Styling**: Tailwind CSS, Shadcn UI
+- **State Management**: TanStack Query
 
 ## Getting Started
 
-1. **Clone the repository**
+### Installation
+
+1. Clone the repository:
    ```bash
    git clone <repository-url>
-   cd cet-prep-companion
+   cd cetprep
    ```
 
-2. **Install dependencies**
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-3. **Run development server**
+3. Run development server:
    ```bash
    npm run dev
    ```
 
-## Technologies
+### Build
 
-- React
-- TypeScript
-- Vite
-- Tailwind CSS
-- shadcn/ui
+```bash
+npm run build
+```
+
+---
+*Built for MBA CET success.*

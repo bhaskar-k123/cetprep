@@ -31,24 +31,24 @@ export function SectionCard({
     <Link
       to={`/syllabus?section=${section.id}`}
       className={cn(
-        "academic-card block group hover:bg-primary/5 p-4",
+        "academic-card block group hover:bg-primary/5 p-2",
         className
       )}
     >
-      <div className="flex items-start gap-4">
-        <div className="p-2 bg-secondary border border-border text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-all duration-300 rounded-lg">
-          <Icon className="h-4 w-4" />
+      <div className="flex items-start gap-3">
+        <div className="p-1.5 bg-secondary border border-border text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-all duration-300 rounded-lg">
+          <Icon className="h-3.5 w-3.5" />
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="font-heading font-bold text-sm text-foreground leading-tight mb-2 tracking-tight">{section.name}</h3>
-          <div className="flex items-center justify-between mb-3">
-            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-              {completedTopics} / {totalTopics} TOPICS
-            </p>
-            <span className="text-[10px] font-bold text-primary uppercase tracking-widest">
+          <div className="flex items-center justify-between mb-1">
+            <h3 className="font-heading font-bold text-xs text-foreground leading-tight tracking-tight line-clamp-2 pr-2">{section.name}</h3>
+            <span className="text-[9px] font-bold text-primary uppercase tracking-widest leading-none">
               {Math.round(percentage)}%
             </span>
           </div>
+          <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5">
+            {completedTopics} / {totalTopics} TOPICS
+          </p>
           <ProgressBar
             value={percentage}
             showLabel={false}
