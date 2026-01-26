@@ -33,6 +33,7 @@ export function TopicRow({
       <Checkbox
         checked={isCompleted}
         onCheckedChange={onToggleComplete}
+        aria-label={`Mark ${topic.name} as complete`}
         className="shrink-0 rounded-none border-muted-foreground data-[state=checked]:bg-primary data-[state=checked]:border-primary"
       />
       <div className="flex-1 min-w-0">

@@ -17,7 +17,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
-      <div className="mx-auto px-4 md:px-8 flex h-16 items-center">
+      <div className="mx-auto px-4 md:px-6 flex h-12 items-center">
         <div className="mr-8">
           <Link to="/" className="flex items-center space-x-2">
             <span className="font-heading font-bold text-2xl tracking-tight text-primary">CET Prep</span>

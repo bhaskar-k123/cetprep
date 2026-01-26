@@ -451,23 +451,23 @@ export default function Practice() {
   const isReviewPhase = phase === "review";
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] bg-background">
+    <div className="flex h-full w-full bg-background overflow-hidden">
       {/* Main Content */}
       <div className={cn(
-        "flex-1 p-10 overflow-auto transition-all duration-300",
+        "flex-1 p-4 overflow-auto transition-all duration-300",
         isFocusMode ? "max-w-5xl mx-auto" : ""
       )}>
         {/* Header */}
-        <div className="flex items-center justify-between mb-12 border-b border-border pb-6">
-          <div className="flex items-center gap-6">
+        <div className="flex items-center justify-between mb-4 border-b border-border pb-2">
+          <div className="flex items-center gap-4">
             <Link
               to={`/topic/${topicId}`}
-              className="p-2 border border-border bg-secondary text-muted-foreground hover:text-primary hover:border-primary/30 transition-all rounded-[var(--radius)]"
+              className="p-1.5 border border-border bg-secondary text-muted-foreground hover:text-primary hover:border-primary/30 transition-all rounded-[var(--radius)]"
             >
-              <ArrowLeft className="h-5 w-5" />
+              <ArrowLeft className="h-4 w-4" />
             </Link>
             <div>
-              <h1 className="font-heading font-bold text-3xl tracking-tight leading-tight">{topic.name}</h1>
+              <h1 className="font-heading font-bold text-xl tracking-tight leading-tight">{topic.name}</h1>
               <div className="flex items-center gap-4 mt-2">
                 <p className="text-[10px] font-bold text-primary uppercase tracking-widest">
                   ASSESSMENT ITEM {currentIndex + 1} OF {questions.length}
@@ -551,35 +551,35 @@ export default function Practice() {
               (isCurrentSubmitted || isReviewPhase) &&
               showExplanation.has(currentQuestion.id)
             }
-            className="mb-12"
+            className="mb-4"
           />
 
           {/* Feedback & Actions */}
           {(isCurrentSubmitted || isReviewPhase) && (
-            <div className="mt-8 space-y-6 animate-in fade-in slide-in-from-top-4 duration-500">
+            <div className="mt-4 space-y-4 animate-in fade-in slide-in-from-top-4 duration-500">
               <div
                 className={cn(
-                  "flex items-center gap-6 p-6 border-l-4",
+                  "flex items-center gap-4 p-4 border-l-4",
                   isCurrentCorrect
                     ? "border-l-primary bg-primary/5"
                     : "border-l-destructive bg-destructive/5"
                 )}
               >
                 <div className={cn(
-                  "p-2 bg-card border",
+                  "p-1.5 bg-card border",
                   isCurrentCorrect ? "text-primary border-primary/20" : "text-destructive border-destructive/20"
                 )}>
-                  {isCurrentCorrect ? <Check className="h-6 w-6" /> : <X className="h-6 w-6" />}
+                  {isCurrentCorrect ? <Check className="h-5 w-5" /> : <X className="h-5 w-5" />}
                 </div>
                 <div>
                   <h3 className={cn(
-                    "font-heading font-bold text-xl",
+                    "font-heading font-bold text-lg",
                     isCurrentCorrect ? "text-primary" : "text-destructive"
                   )}>
                     {isCurrentCorrect ? "VALIDATED RESPONSE" : "INCORRECT RESPONSE"}
                   </h3>
                   {!isCurrentCorrect && (
-                    <p className="text-sm font-bold text-muted-foreground mt-1 tracking-widest uppercase">
+                    <p className="text-[10px] font-bold text-muted-foreground mt-0.5 tracking-widest uppercase">
                       Correct: {currentQuestion.correct_option}
                     </p>
                   )}
@@ -587,7 +587,7 @@ export default function Practice() {
               </div>
 
               {!isCurrentCorrect && (
-                <Button variant="outline" size="sm" onClick={handleToggleExplanation} className="btn-academic-secondary w-full sm:w-auto tracking-widest text-[10px] uppercase font-bold px-6">
+                <Button variant="outline" size="sm" onClick={handleToggleExplanation} className="btn-academic-secondary w-full sm:w-auto tracking-widest text-[9px] uppercase font-bold px-4 h-8">
                   {showExplanation.has(currentQuestion.id)
                     ? "CONCEAL EXPLANATION"
                     : "DIVULGE EXPLANATION"}
@@ -597,33 +597,23 @@ export default function Practice() {
           )}
 
           {/* Submit / Navigation */}
-          <div className="flex items-center justify-between mt-12 pt-8 border-t border-border">
+          <div className="flex items-center justify-between mt-6 pt-4 border-t border-border">
             <Button
               variant="ghost"
               onClick={handlePrevious}
               disabled={currentIndex === 0}
-              className="text-muted-foreground hover:text-primary transition-all font-bold tracking-widest text-[10px] uppercase"
+              className="text-muted-foreground hover:text-primary transition-all font-bold tracking-widest text-[10px] uppercase h-9"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
               PRIOR ITEM
             </Button>
 
             <div className="flex gap-4">
-              {/* Only show "Validate" check for non-mock practice mode? For mocks user usually submits at end. 
-                  But user asked for "flexible". Let's update Practice Mode to not auto-submit on click? 
-                  Or keep as is for now: Practice = Immediate Feedback. Mock = Time based? 
-                  Let's assume "MOCKS" don't show immediate feedback? 
-                  Current impl: `isCurrentSubmitted` controls feedback. 
-                  If we want Mocks to be "test mode", we shouldn't show feedback immediately. 
-                  
-                  Let's modify: If Mock Test, "Validate Answer" button should probably be "Save & Next"?
-               */}
-
               {(!isReviewPhase && !isCurrentSubmitted && !isMockTest && !isInstantFeedback) && (
                 <Button
                   onClick={handleSubmitAnswer}
                   disabled={!answers[currentQuestion.id]}
-                  className="btn-academic-primary min-w-[160px] shadow-lg shadow-primary/10"
+                  className="btn-academic-primary min-w-[140px] shadow-lg shadow-primary/10 h-9"
                 >
                   VALIDATE ANSWER
                 </Button>
@@ -633,12 +623,12 @@ export default function Practice() {
                 <Button
                   onClick={isReviewPhase ? handleExit : handleFinishPractice}
                   variant={isReviewPhase ? "outline" : "default"}
-                  className={isReviewPhase ? "btn-academic-secondary" : "btn-academic-primary"}
+                  className={cn("h-9", isReviewPhase ? "btn-academic-secondary" : "btn-academic-primary")}
                 >
                   {isReviewPhase ? "TERMINATE" : "CONCLUDE ASSESSMENT"}
                 </Button>
               ) : (
-                <Button variant={isCurrentSubmitted ? "default" : "outline"} onClick={handleNext} className={cn("min-w-[120px] transition-all", isCurrentSubmitted ? "btn-academic-primary" : "btn-academic-secondary")}>
+                <Button variant={isCurrentSubmitted ? "default" : "outline"} onClick={handleNext} className={cn("min-w-[120px] transition-all h-9", isCurrentSubmitted ? "btn-academic-primary" : "btn-academic-secondary")}>
                   NEXT ITEM
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>
@@ -646,22 +636,22 @@ export default function Practice() {
             </div>
           </div>
 
-          <div className="mt-12 flex justify-center gap-10 text-[10px] text-muted-foreground font-bold uppercase tracking-widest opacity-40">
-            <span className="flex items-center gap-2"><kbd className="border border-border bg-card px-2 py-1 rounded-none">A-E</kbd> SELECT</span>
-            <span className="flex items-center gap-2"><kbd className="border border-border bg-card px-2 py-1 rounded-none">ENTER</kbd> VALIDATE</span>
-            <span className="flex items-center gap-2"><kbd className="border border-border bg-card px-2 py-1 rounded-none">→</kbd> NEXT</span>
+          <div className="mt-6 flex justify-center gap-10 text-[9px] text-muted-foreground font-bold uppercase tracking-widest opacity-40">
+            <span className="flex items-center gap-2"><kbd className="border border-border bg-card px-2 py-0.5 rounded-none">A-E</kbd> SELECT</span>
+            <span className="flex items-center gap-2"><kbd className="border border-border bg-card px-2 py-0.5 rounded-none">ENTER</kbd> VALIDATE</span>
+            <span className="flex items-center gap-2"><kbd className="border border-border bg-card px-2 py-0.5 rounded-none">→</kbd> NEXT</span>
           </div>
         </div>
       </div>
 
       {/* Sidebar Navigator */}
       {!isFocusMode && (
-        <div className="w-80 shrink-0 border-l border-border bg-background p-8 hidden lg:block overflow-y-auto">
+        <div className="w-64 shrink-0 border-l border-border bg-background p-4 hidden lg:block overflow-y-auto">
           {/* Show Exam/Mock Info if Mock */}
           {isMockTest && (
-            <div className="mb-6 p-4 rounded bg-primary/5 border border-primary/20">
-              <div className="text-xs font-bold uppercase tracking-widest text-primary mb-1">Time Remaining</div>
-              <div className={cn("text-3xl font-mono font-bold", timeRemaining < 300 ? "text-destructive" : "text-foreground")}>
+            <div className="mb-4 p-3 rounded bg-primary/5 border border-primary/20">
+              <div className="text-[10px] font-bold uppercase tracking-widest text-primary mb-1">Time Remaining</div>
+              <div className={cn("text-2xl font-mono font-bold", timeRemaining < 300 ? "text-destructive" : "text-foreground")}>
                 {formatTime(timeRemaining)}
               </div>
             </div>
