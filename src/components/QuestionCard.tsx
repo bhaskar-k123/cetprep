@@ -33,30 +33,30 @@ export function QuestionCard({
 
   return (
     <div className={cn("space-y-8", className)}>
-        {/* Instruction Text (for Sets) */}
-        {question.instruction_text && (
-            <div className="bg-secondary/20 p-6 border-l-4 border-primary/40 text-muted-foreground whitespace-pre-wrap leading-relaxed font-serif text-lg mb-8">
-                {question.instruction_text}
-            </div>
-        )}
+      {/* Instruction Text (for Sets) */}
+      {question.instruction_text && (
+        <div className="bg-secondary/20 p-6 border-l-4 border-primary/40 text-muted-foreground whitespace-pre-wrap leading-relaxed font-serif text-lg mb-8">
+          {question.instruction_text}
+        </div>
+      )}
 
       <div className="space-y-6 border-b border-border pb-8">
         {/* Question Content */}
         {question.question_text && (
-            <div className="text-foreground whitespace-pre-wrap leading-relaxed font-sans text-2xl font-semibold">
-                {question.question_text}
-            </div>
+          <div className="text-foreground whitespace-pre-wrap leading-relaxed font-sans text-2xl font-semibold">
+            {question.question_text}
+          </div>
         )}
-        
+
         {/* Question Image */}
         {question.question_image && (
-            <div className="rounded-lg overflow-hidden border border-border shadow-sm">
-                <img 
-                    src={`/${question.question_image}`} 
-                    alt="Question" 
-                    className="max-w-full h-auto"
-                />
-            </div>
+          <div className="rounded-lg overflow-hidden border border-border shadow-sm">
+            <img
+              src={`/${question.question_image}`}
+              alt="Question"
+              className="max-w-full h-auto"
+            />
+          </div>
         )}
       </div>
 
@@ -70,7 +70,7 @@ export function QuestionCard({
 
           if (isSubmitted) {
             if (isCorrectOption) {
-              optionClasses += " border-primary/50 bg-primary/5 text-foreground"; 
+              optionClasses += " border-primary/50 bg-primary/5 text-foreground";
             } else if (isSelected && !isCorrectOption) {
               optionClasses += " border-destructive/40 bg-destructive/5 text-muted-foreground";
             } else {
@@ -80,7 +80,7 @@ export function QuestionCard({
             if (isSelected) {
               optionClasses += " border-primary bg-primary/5 ring-1 ring-primary/20 shadow-lg shadow-primary/5";
             } else {
-              optionClasses += " border-border bg-white hover:bg-secondary/50 hover:border-primary/30";
+              optionClasses += " border-border bg-card hover:bg-secondary/50 hover:border-primary/30";
             }
           }
 
@@ -93,32 +93,32 @@ export function QuestionCard({
               {/* Selection Hex/Square */}
               <div className={cn(
                 "h-7 w-7 border flex items-center justify-center shrink-0 mt-0.5 transition-all duration-300 rotate-45 rounded-sm",
-                isSelected || (isSubmitted && isCorrectOption) 
-                  ? "bg-primary border-primary text-white" 
+                isSelected || (isSubmitted && isCorrectOption)
+                  ? "bg-primary border-primary text-white"
                   : "border-border bg-secondary text-muted-foreground group-hover:border-primary/50"
               )}>
                 <span className="text-[10px] font-bold -rotate-45">{option.key}</span>
               </div>
-              
+
               <div className="flex-1">
-                  {option.text && (
-                    <span className="text-lg font-sans font-medium leading-relaxed block mb-2">{option.text}</span>
-                  )}
-                  {option.image && (
-                      <div className="mt-1 rounded border border-border/50 bg-white p-1 inline-block">
-                          <img 
-                            src={`/${option.image}`} 
-                            alt={`Option ${option.key}`}
-                            className="max-h-[150px] w-auto" 
-                          />
-                      </div>
-                  )}
-              </div>
-              
-              {isSubmitted && isCorrectOption && (
-                  <div className="absolute right-6 top-1/2 -translate-y-1/2">
-                      <Check className="h-5 w-5 text-primary" />
+                {option.text && (
+                  <span className="text-lg font-sans font-medium leading-relaxed block mb-2">{option.text}</span>
+                )}
+                {option.image && (
+                  <div className="mt-1 rounded border border-border/50 bg-card p-1 inline-block">
+                    <img
+                      src={`/${option.image}`}
+                      alt={`Option ${option.key}`}
+                      className="max-h-[150px] w-auto"
+                    />
                   </div>
+                )}
+              </div>
+
+              {isSubmitted && isCorrectOption && (
+                <div className="absolute right-6 top-1/2 -translate-y-1/2">
+                  <Check className="h-5 w-5 text-primary" />
+                </div>
               )}
             </div>
           );
