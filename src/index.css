@@ -9,25 +9,27 @@
     /* Serious Academic Palette - Claude Inspired */
     --background: 30 15% 98%;
     --foreground: 220 15% 10%;
-    
+
     --card: 0 0% 100%;
     --card-foreground: 220 15% 10%;
-    
+
     --popover: 0 0% 100%;
     --popover-foreground: 220 15% 10%;
-    
-    --primary: 25 40% 45%; /* Terracotta */
+
+    --primary: 25 40% 45%;
+    /* Terracotta */
     --primary-foreground: 30 15% 100%;
-    
-    --secondary: 35 25% 94%; /* Creamy Neutral */
+
+    --secondary: 35 25% 94%;
+    /* Creamy Neutral */
     --secondary-foreground: 25 40% 20%;
-    
+
     --muted: 35 15% 90%;
     --muted-foreground: 25 10% 40%;
-    
+
     --accent: 25 40% 96%;
     --accent-foreground: 25 40% 25%;
-    
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
@@ -35,7 +37,8 @@
     --input: 25 15% 88%;
     --ring: 25 40% 45%;
 
-    --radius: 1rem; /* Pronounced Rounded Edges */
+    --radius: 1rem;
+    /* Pronounced Rounded Edges */
 
     /* Priority variables for badges - HSL components as values */
     --priority-high: 25 40% 45%;
@@ -55,41 +58,108 @@
   }
 
   .dark {
-    --background: 0 0% 8%;
-    --foreground: 0 0% 90%;
+    /* Premium Dark Palette - Deep Slate */
+    --background: 224 71% 4%;
+    /* Very deep blue-black */
+    --foreground: 210 40% 98%;
+    /* Soft white */
+
+    --card: 222 47% 11%;
+    /* Rich deep slate */
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Vibrant Terracotta for Dark Mode */
+    --primary: 25 90% 64%;
+    /* Brighter, glowing orange-red */
+    --primary-foreground: 224 71% 4%;
+
+    --secondary: 217 33% 17%;
+    /* Muted slate for secondary actions */
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 25 90% 64%;
+    /* Matching primary glow */
+
+    /* Adjusted Priority Colors for Dark Mode */
+    --priority-high: 25 90% 65%;
+    --priority-high-bg: 25 50% 15%;
+
+    --priority-medium: 35 90% 60%;
+    --priority-medium-bg: 35 50% 15%;
+
+    --priority-low: 45 90% 55%;
+    --priority-low-bg: 45 50% 15%;
+
+    /* Section Colors - More Luminous */
+    --section-lr: 25 95% 65%;
+    --section-ar: 35 90% 60%;
+    --section-qa: 15 90% 65%;
+    --section-varc: 45 80% 60%;
+
+    --success: 142 70% 45%;
   }
 
   * {
     @apply border-border;
   }
-  
+
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Crimson Text', serif;
-    font-weight: 600; /* Heavier base weight (approx +20%) */
+    font-weight: 600;
+    /* Heavier base weight (approx +20%) */
     letter-spacing: 0.01em;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'EB Garamond', serif;
-    @apply font-bold tracking-tight text-foreground; /* font-bold instead of font-semibold */
+    @apply font-bold tracking-tight text-foreground;
+    /* font-bold instead of font-semibold */
   }
 
-  h1 { @apply text-4xl md:text-5xl mb-6; }
-  h2 { @apply text-2xl md:text-3xl mb-4; }
-  h3 { @apply text-xl md:text-2xl mb-2; }
+  h1 {
+    @apply text-4xl md:text-5xl mb-6;
+  }
+
+  h2 {
+    @apply text-2xl md:text-3xl mb-4;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl mb-2;
+  }
 }
 
 @layer components {
+
   /* Minimal Academic Components with Rounded Edges */
   .academic-card {
-    @apply bg-white border border-border p-6 transition-all duration-300 rounded-[var(--radius)];
-    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    @apply bg-card border border-border p-6 transition-all duration-300 rounded-[var(--radius)];
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
   }
-  
+
   .academic-card:hover {
     @apply border-primary/20 bg-primary/[0.02];
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
   }
 
   .btn-academic {
@@ -101,11 +171,11 @@
   }
 
   .btn-academic-secondary {
-    @apply btn-academic bg-white border-border text-muted-foreground hover:border-primary/40 hover:text-primary hover:bg-primary/5;
+    @apply btn-academic bg-card border-border text-muted-foreground hover:border-primary/40 hover:text-primary hover:bg-primary/5;
   }
 
   .input-academic {
-    @apply w-full bg-white border border-border py-3 px-4 focus:outline-none focus:border-primary transition-all font-sans rounded-[var(--radius)];
+    @apply w-full bg-input/10 border border-border py-3 px-4 focus:outline-none focus:border-primary transition-all font-sans rounded-[var(--radius)] text-foreground placeholder:text-muted-foreground;
   }
 
   /* Priority Badge Variants */
@@ -122,10 +192,21 @@
   }
 
   /* Section Color Accents */
-  .section-lr { --section-color: var(--section-lr); }
-  .section-ar { --section-color: var(--section-ar); }
-  .section-qa { --section-color: var(--section-qa); }
-  .section-varc { --section-color: var(--section-varc); }
+  .section-lr {
+    --section-color: var(--section-lr);
+  }
+
+  .section-ar {
+    --section-color: var(--section-ar);
+  }
+
+  .section-qa {
+    --section-color: var(--section-qa);
+  }
+
+  .section-varc {
+    --section-color: var(--section-varc);
+  }
 
   /* Feedback States */
   .answer-correct {

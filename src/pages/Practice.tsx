@@ -34,15 +34,15 @@ export default function Practice() {
 
   // Determine if this is a Mock Test (150 mins = 9000s)
   const isMockTest = section?.id === "MOCKS";
-  const MOCK_DURATION = 150 * 60; 
+  const MOCK_DURATION = 150 * 60;
 
   // Session Persistence
-  const { 
-    session, 
-    isLoading: isSessionLoading, 
-    saveSession, 
-    initializeSession, 
-    clearSession 
+  const {
+    session,
+    isLoading: isSessionLoading,
+    saveSession,
+    initializeSession,
+    clearSession
   } = usePracticeSession(topicId || "", isMockTest ? MOCK_DURATION : 0);
 
   // Local State (mirroring session state for immediate UI feedback, syncing back to session)
@@ -55,7 +55,7 @@ export default function Practice() {
   const [showExplanation, setShowExplanation] = useState<Set<string>>(new Set());
   const [phase, setPhase] = useState<PracticePhase>("practice");
   const [isFocusMode, setIsFocusMode] = useState(false);
-  
+
   // Timer State
   const [timeRemaining, setTimeRemaining] = useState<number>(isMockTest ? MOCK_DURATION : 0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -63,83 +63,83 @@ export default function Practice() {
   // Initialize or Restore Logic
   useEffect(() => {
     if (!isSessionLoading && topicId) {
-       if (session) {
-         // Restore session
-         setCurrentIndex(session.currentIndex);
-         setAnswers(session.answers);
-         setMarkedForReview(new Set(session.markedForReview));
-         setTimeRemaining(session.timeRemaining);
-         
-         // If session was already submitted, go to summary/review? 
-         if (session.isSubmitted) {
-            setPhase("summary");
-            // Mark all answered as submitted for logic consistency
-            const sub = new Set<string>();
-            Object.keys(session.answers).forEach(k => {
-                if (session.answers[k]) sub.add(k);
-            });
-            setSubmitted(sub);
-         } else {
-             // Recovering an active session
-              const sub = new Set<string>();
-              Object.keys(session.answers).forEach(k => {
-                  // Only if we consider previously saved answers as "submitted" in practice mode?
-                  // For mocks, we usually construct answers and submit at end.
-                  // For practice, we submit per question.
-                  // Let's assume for now persistence restores STATE, but "submitted" status per question 
-                  // is lost in current schema (we only stored isSubmitted globally). 
-                  // If we want to persist per-question submission status, we need to add it to schema.
-                  // For now, let's treat restored answers as "selected but not validated" 
-                  // OR "validated" if we check against attempts? 
-                  // Let's keep it simple: answers are restored. User can re-validate or continue.
-              });
-         }
+      if (session) {
+        // Restore session
+        setCurrentIndex(session.currentIndex);
+        setAnswers(session.answers);
+        setMarkedForReview(new Set(session.markedForReview));
+        setTimeRemaining(session.timeRemaining);
 
-       } else {
-         // New Session
-         initializeSession(isMockTest ? MOCK_DURATION : 0);
-       }
+        // If session was already submitted, go to summary/review? 
+        if (session.isSubmitted) {
+          setPhase("summary");
+          // Mark all answered as submitted for logic consistency
+          const sub = new Set<string>();
+          Object.keys(session.answers).forEach(k => {
+            if (session.answers[k]) sub.add(k);
+          });
+          setSubmitted(sub);
+        } else {
+          // Recovering an active session
+          const sub = new Set<string>();
+          Object.keys(session.answers).forEach(k => {
+            // Only if we consider previously saved answers as "submitted" in practice mode?
+            // For mocks, we usually construct answers and submit at end.
+            // For practice, we submit per question.
+            // Let's assume for now persistence restores STATE, but "submitted" status per question 
+            // is lost in current schema (we only stored isSubmitted globally). 
+            // If we want to persist per-question submission status, we need to add it to schema.
+            // For now, let's treat restored answers as "selected but not validated" 
+            // OR "validated" if we check against attempts? 
+            // Let's keep it simple: answers are restored. User can re-validate or continue.
+          });
+        }
+
+      } else {
+        // New Session
+        initializeSession(isMockTest ? MOCK_DURATION : 0);
+      }
     }
   }, [isSessionLoading, topicId, session, isMockTest, initializeSession, MOCK_DURATION]);
 
   // Sync state to session (Debounced)
   useEffect(() => {
-     if (!isSessionLoading && session && topicId) {
-         const timeoutId = setTimeout(() => {
-            saveSession({
-                answers,
-                currentIndex,
-                markedForReview: Array.from(markedForReview),
-                timeRemaining,
-                isSubmitted: phase !== "practice"
-             });
-         }, 1000); // Debounce by 1s (effectively saves every 1s if continuous, but cleaner if we increased delay)
-         // Actually, for timer, we want it to save periodically.
-         // A better pattern for timer-heavy apps is to save every X seconds, not on every change.
-         // But here we depend on `timeRemaining` changing every second.
-         // Let's rely on the fact that `usePracticeSession` usually wraps setState.
-         
-         return () => clearTimeout(timeoutId);
-     }
+    if (!isSessionLoading && session && topicId) {
+      const timeoutId = setTimeout(() => {
+        saveSession({
+          answers,
+          currentIndex,
+          markedForReview: Array.from(markedForReview),
+          timeRemaining,
+          isSubmitted: phase !== "practice"
+        });
+      }, 1000); // Debounce by 1s (effectively saves every 1s if continuous, but cleaner if we increased delay)
+      // Actually, for timer, we want it to save periodically.
+      // A better pattern for timer-heavy apps is to save every X seconds, not on every change.
+      // But here we depend on `timeRemaining` changing every second.
+      // Let's rely on the fact that `usePracticeSession` usually wraps setState.
+
+      return () => clearTimeout(timeoutId);
+    }
   }, [answers, currentIndex, markedForReview, timeRemaining, phase, isSessionLoading, session, topicId, saveSession]);
 
   // Timer Logic
   useEffect(() => {
-      if (phase === "practice" && isMockTest) {
-          timerRef.current = setInterval(() => {
-              setTimeRemaining((prev) => {
-                  if (prev <= 1) {
-                      // Auto Submit
-                      handleFinishPractice();
-                      return 0;
-                  }
-                  return prev - 1;
-              });
-          }, 1000);
-      }
-      return () => {
-          if (timerRef.current) clearInterval(timerRef.current);
-      };
+    if (phase === "practice" && isMockTest) {
+      timerRef.current = setInterval(() => {
+        setTimeRemaining((prev) => {
+          if (prev <= 1) {
+            // Auto Submit
+            handleFinishPractice();
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
   }, [phase, isMockTest]); // handleFinishPractice dependency loop?
 
   const currentQuestion = questions[currentIndex];
@@ -211,8 +211,8 @@ export default function Practice() {
           break;
         case "e":
         case "E":
-            handleSelectOption("E");
-            break;
+          handleSelectOption("E");
+          break;
         case "Enter":
           if (!submitted.has(currentQuestion?.id || "")) {
             handleSubmitAnswer();
@@ -273,7 +273,7 @@ export default function Practice() {
     setPhase("summary");
     // Also save final state
     if (session && topicId) {
-        saveSession({ isSubmitted: true, timeRemaining: 0 });
+      saveSession({ isSubmitted: true, timeRemaining: 0 });
     }
   }, [session, topicId, saveSession]);
 
@@ -286,23 +286,23 @@ export default function Practice() {
     navigate(`/topic/${topicId}`); // Or section page?
   }, [navigate, topicId]);
 
-    const handleReset = useCallback(() => {
-        if(confirm("Are you sure you want to reset this session? All progress will be lost.")){
-            clearSession();
-            window.location.reload();
-        }
-    }, [clearSession]);
+  const handleReset = useCallback(() => {
+    if (confirm("Are you sure you want to reset this session? All progress will be lost.")) {
+      clearSession();
+      window.location.reload();
+    }
+  }, [clearSession]);
 
   // Format Time
   const formatTime = (seconds: number) => {
-      const h = Math.floor(seconds / 3600);
-      const m = Math.floor((seconds % 3600) / 60);
-      const s = seconds % 60;
-      return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   }
 
   if (isSessionLoading) {
-      return <div className="flex h-screen items-center justify-center">Loading Session...</div>;
+    return <div className="flex h-screen items-center justify-center">Loading Session...</div>;
   }
 
   if (!topic || questions.length === 0) {
@@ -335,8 +335,8 @@ export default function Practice() {
     return (
       <div className="container-centered py-16 max-w-3xl">
         <div className="mb-10 text-center">
-            <h1 className="text-5xl font-heading font-bold text-foreground mb-4">Competency Assessment Complete</h1>
-            <p className="text-xl text-muted-foreground font-sans italic">{topic.name}</p>
+          <h1 className="text-5xl font-heading font-bold text-foreground mb-4">Competency Assessment Complete</h1>
+          <p className="text-xl text-muted-foreground font-sans italic">{topic.name}</p>
         </div>
 
         <div className="academic-card p-10 mb-10 border-primary/20 bg-primary/5">
@@ -409,48 +409,48 @@ export default function Practice() {
             <div>
               <h1 className="font-heading font-bold text-3xl tracking-tight leading-tight">{topic.name}</h1>
               <div className="flex items-center gap-4 mt-2">
-                 <p className="text-[10px] font-bold text-primary uppercase tracking-widest">
-                    ASSESSMENT ITEM {currentIndex + 1} OF {questions.length}
-                 </p>
-                 {isMockTest && (
-                     <div className={cn("flex items-center gap-2 text-sm font-bold font-mono px-3 py-1 rounded bg-secondary border border-border", timeRemaining < 300 ? "text-destructive" : "text-muted-foreground")}>
-                         <Clock className="h-3 w-3" />
-                         {formatTime(timeRemaining)}
-                     </div>
-                 )}
+                <p className="text-[10px] font-bold text-primary uppercase tracking-widest">
+                  ASSESSMENT ITEM {currentIndex + 1} OF {questions.length}
+                </p>
+                {isMockTest && (
+                  <div className={cn("flex items-center gap-2 text-sm font-bold font-mono px-3 py-1 rounded bg-secondary border border-border", timeRemaining < 300 ? "text-destructive" : "text-muted-foreground")}>
+                    <Clock className="h-3 w-3" />
+                    {formatTime(timeRemaining)}
+                  </div>
+                )}
               </div>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-4">
             {!isReviewPhase && (
-                <>
+              <>
                 <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={handleReset}
-                    className="text-muted-foreground hover:text-destructive transition-colors"
-                    title="Reset Session"
+                  variant="outline"
+                  size="icon"
+                  onClick={handleReset}
+                  className="text-muted-foreground hover:text-destructive transition-colors"
+                  title="Reset Session"
                 >
-                    <RotateCcw className="h-4 w-4" />
+                  <RotateCcw className="h-4 w-4" />
                 </Button>
 
                 <Button
-                    variant={isMarked ? "default" : "outline"}
-                    size="sm"
-                    onClick={handleToggleMarkForReview}
-                    className={cn(
-                        "btn-academic border-border",
-                        isMarked ? "bg-primary text-white border-primary" : "bg-white text-muted-foreground"
-                    )}
+                  variant={isMarked ? "default" : "outline"}
+                  size="sm"
+                  onClick={handleToggleMarkForReview}
+                  className={cn(
+                    "btn-academic border-border",
+                    isMarked ? "bg-primary text-white border-primary" : "bg-card text-muted-foreground"
+                  )}
                 >
-                    <Star
+                  <Star
                     className={cn(
-                        "h-4 w-4 mr-2",
-                        isMarked && "fill-current"
+                      "h-4 w-4 mr-2",
+                      isMarked && "fill-current"
                     )}
-                    />
-                    {isMarked ? "REVIEW MARK" : "MARK FOR REVIEW"}
+                  />
+                  {isMarked ? "REVIEW MARK" : "MARK FOR REVIEW"}
                 </Button>
               </>
             )}
@@ -493,32 +493,32 @@ export default function Practice() {
                 )}
               >
                 <div className={cn(
-                    "p-2 bg-white border",
-                    isCurrentCorrect ? "text-primary border-primary/20" : "text-destructive border-destructive/20"
+                  "p-2 bg-card border",
+                  isCurrentCorrect ? "text-primary border-primary/20" : "text-destructive border-destructive/20"
                 )}>
-                    {isCurrentCorrect ? <Check className="h-6 w-6" /> : <X className="h-6 w-6" />}
+                  {isCurrentCorrect ? <Check className="h-6 w-6" /> : <X className="h-6 w-6" />}
                 </div>
                 <div>
-                    <h3 className={cn(
-                        "font-heading font-bold text-xl",
-                        isCurrentCorrect ? "text-primary" : "text-destructive"
-                    )}>
-                        {isCurrentCorrect ? "VALIDATED RESPONSE" : "INCORRECT RESPONSE"}
-                    </h3>
-                    {!isCurrentCorrect && (
-                        <p className="text-sm font-bold text-muted-foreground mt-1 tracking-widest uppercase">
-                            Correct: {currentQuestion.correct_option}
-                        </p>
-                    )}
+                  <h3 className={cn(
+                    "font-heading font-bold text-xl",
+                    isCurrentCorrect ? "text-primary" : "text-destructive"
+                  )}>
+                    {isCurrentCorrect ? "VALIDATED RESPONSE" : "INCORRECT RESPONSE"}
+                  </h3>
+                  {!isCurrentCorrect && (
+                    <p className="text-sm font-bold text-muted-foreground mt-1 tracking-widest uppercase">
+                      Correct: {currentQuestion.correct_option}
+                    </p>
+                  )}
                 </div>
               </div>
-              
+
               {!isCurrentCorrect && (
-                  <Button variant="outline" size="sm" onClick={handleToggleExplanation} className="btn-academic-secondary w-full sm:w-auto tracking-widest text-[10px] uppercase font-bold px-6">
-                    {showExplanation.has(currentQuestion.id)
-                      ? "CONCEAL EXPLANATION"
-                      : "DIVULGE EXPLANATION"}
-                  </Button>
+                <Button variant="outline" size="sm" onClick={handleToggleExplanation} className="btn-academic-secondary w-full sm:w-auto tracking-widest text-[10px] uppercase font-bold px-6">
+                  {showExplanation.has(currentQuestion.id)
+                    ? "CONCEAL EXPLANATION"
+                    : "DIVULGE EXPLANATION"}
+                </Button>
               )}
             </div>
           )}
@@ -545,7 +545,7 @@ export default function Practice() {
                   
                   Let's modify: If Mock Test, "Validate Answer" button should probably be "Save & Next"?
                */}
-               
+
               {(!isReviewPhase && !isCurrentSubmitted && !isMockTest) && (
                 <Button
                   onClick={handleSubmitAnswer}
@@ -555,7 +555,7 @@ export default function Practice() {
                   VALIDATE ANSWER
                 </Button>
               )}
-              
+
               {currentIndex === questions.length - 1 ? (
                 <Button
                   onClick={isReviewPhase ? handleExit : handleFinishPractice}
@@ -572,11 +572,11 @@ export default function Practice() {
               )}
             </div>
           </div>
-          
+
           <div className="mt-12 flex justify-center gap-10 text-[10px] text-muted-foreground font-bold uppercase tracking-widest opacity-40">
-            <span className="flex items-center gap-2"><kbd className="border border-border bg-white px-2 py-1 rounded-none">A-E</kbd> SELECT</span>
-            <span className="flex items-center gap-2"><kbd className="border border-border bg-white px-2 py-1 rounded-none">ENTER</kbd> VALIDATE</span>
-            <span className="flex items-center gap-2"><kbd className="border border-border bg-white px-2 py-1 rounded-none">→</kbd> NEXT</span>
+            <span className="flex items-center gap-2"><kbd className="border border-border bg-card px-2 py-1 rounded-none">A-E</kbd> SELECT</span>
+            <span className="flex items-center gap-2"><kbd className="border border-border bg-card px-2 py-1 rounded-none">ENTER</kbd> VALIDATE</span>
+            <span className="flex items-center gap-2"><kbd className="border border-border bg-card px-2 py-1 rounded-none">→</kbd> NEXT</span>
           </div>
         </div>
       </div>
@@ -584,15 +584,15 @@ export default function Practice() {
       {/* Sidebar Navigator */}
       {!isFocusMode && (
         <div className="w-80 shrink-0 border-l border-border bg-background p-8 hidden lg:block overflow-y-auto">
-            {/* Show Exam/Mock Info if Mock */}
-            {isMockTest && (
-                <div className="mb-6 p-4 rounded bg-primary/5 border border-primary/20">
-                     <div className="text-xs font-bold uppercase tracking-widest text-primary mb-1">Time Remaining</div>
-                     <div className={cn("text-3xl font-mono font-bold", timeRemaining < 300 ? "text-destructive" : "text-foreground")}>
-                         {formatTime(timeRemaining)}
-                     </div>
-                </div>
-            )}
+          {/* Show Exam/Mock Info if Mock */}
+          {isMockTest && (
+            <div className="mb-6 p-4 rounded bg-primary/5 border border-primary/20">
+              <div className="text-xs font-bold uppercase tracking-widest text-primary mb-1">Time Remaining</div>
+              <div className={cn("text-3xl font-mono font-bold", timeRemaining < 300 ? "text-destructive" : "text-foreground")}>
+                {formatTime(timeRemaining)}
+              </div>
+            </div>
+          )}
 
           <QuestionNavigator
             totalQuestions={questions.length}
